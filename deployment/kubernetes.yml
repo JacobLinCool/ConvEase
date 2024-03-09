@@ -1,0 +1,118 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+    name: secret
+type: Opaque
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+    labels:
+        service: chromium
+    name: chromium
+spec:
+    ports:
+        - name: "53333"
+          port: 53333
+          targetPort: 53333
+    selector:
+        service: chromium
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    labels:
+        service: bot
+    name: bot
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            service: bot
+    template:
+        metadata:
+            labels:
+                service: bot
+        spec:
+            containers:
+                - env:
+                      - name: BOT_ID
+                        valueFrom:
+                            secretKeyRef:
+                                key: BOT_ID
+                                name: secret
+                      - name: BOT_TOKEN
+                        valueFrom:
+                            secretKeyRef:
+                                key: BOT_TOKEN
+                                name: env
+                      - name: CREATE_THREAD
+                        valueFrom:
+                            secretKeyRef:
+                                key: CREATE_THREAD
+                                name: env
+                      - name: PW_SERVER_URL
+                        valueFrom:
+                            secretKeyRef:
+                                key: PW_SERVER_URL
+                                name: env
+                  image: jacoblincool/convease
+                  name: bot
+                  resources:
+                      limits:
+                          cpu: "2"
+                          memory: "2147483648"
+                      requests:
+                          cpu: 500m
+                          memory: "134217728"
+            restartPolicy: Always
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    labels:
+        service: chromium
+    name: chromium
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            service: chromium
+    template:
+        metadata:
+            labels:
+                service: chromium
+        spec:
+            containers:
+                - image: jacoblincool/chromium-server-cjk
+                  readinessProbe:
+                      exec:
+                          command:
+                              - nc
+                              - -z
+                              - localhost
+                              - "53333"
+                  livenessProbe:
+                      exec:
+                          command:
+                              - nc
+                              - -z
+                              - localhost
+                              - "53333"
+                  name: chromium
+                  ports:
+                      - containerPort: 53333
+                        hostPort: 53333
+                        protocol: TCP
+                  resources:
+                      limits:
+                          cpu: "2"
+                          memory: "4294967296"
+                      requests:
+                          cpu: 500m
+                          memory: "134217728"
+            restartPolicy: Always

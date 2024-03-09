@@ -20,3 +20,19 @@ ConvEase effortlessly converts and transcribes media on Discord, making every co
 ## Screenshots
 
 ![image preview](./screenshots/image-preview.png)
+
+## Deployment
+
+Create a `.env` file in the root directory first, see [`.env.example`](./.env.example) for reference.
+
+### Docker Compose
+
+```sh
+docker compose -f deployment/docker-compose.yml up -d
+```
+
+### Kubernetes
+
+Please use [`deployment/kubernetes.yml`](./deployment/kubernetes.yml) as resource and use yours kustomization config to set the secret.
+
+An example of kustomization config is provided in [`deployment/kustomization.yml`](./deployment/kustomization.yml).

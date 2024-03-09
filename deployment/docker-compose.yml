@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+    chromium:
+        image: jacoblincool/chromium-server-cjk
+        build:
+            context: ..
+            dockerfile: Dockerfile
+            target: chromium
+        ports:
+            - "53333:53333"
+        healthcheck:
+            test: ["CMD", "nc", "-z", "localhost", "53333"]
+            interval: 30s
+            timeout: 10s
+            retries: 5
+        restart: unless-stopped
+        deploy:
+            resources:
+                limits:
+                    cpus: "2"
+                    memory: 4G
+                reservations:
+                    cpus: "0.5"
+                    memory: 128M
+    bot:
+        image: jacoblincool/convease
+        build:
+            context: ..
+            dockerfile: Dockerfile
+            target: bot
+        depends_on:
+            - chromium
+        environment:
+            - PW_SERVER_URL=ws://chromium:53333/playwright
+        env_file:
+            - ../.env
+        restart: unless-stopped
+        deploy:
+            resources:
+                limits:
+                    cpus: "2"
+                    memory: 2G
+                reservations:
+                    cpus: "0.5"
+                    memory: 128M
