@@ -44,7 +44,7 @@ spec:
                             secretKeyRef:
                                 key: PW_SERVER_URL
                                 name: env
-                  image: jacoblincool/convease
+                  image: ghcr.io/jacoblincool/convease
                   name: bot
                   resources:
                       limits:
