@@ -33,17 +33,17 @@ spec:
                         valueFrom:
                             secretKeyRef:
                                 key: BOT_TOKEN
-                                name: env
+                                name: secret
                       - name: CREATE_THREAD
                         valueFrom:
                             secretKeyRef:
                                 key: CREATE_THREAD
-                                name: env
+                                name: secret
                       - name: PW_SERVER_URL
                         valueFrom:
                             secretKeyRef:
                                 key: PW_SERVER_URL
-                                name: env
+                                name: secret
                   image: ghcr.io/jacoblincool/convease
                   name: bot
                   resources:
