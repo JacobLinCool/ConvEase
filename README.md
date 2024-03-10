@@ -33,6 +33,9 @@ docker compose -f deployment/docker-compose.yml up -d
 
 ### Kubernetes
 
-Please use [`deployment/kubernetes.yml`](./deployment/kubernetes.yml) as resource and use yours kustomization config to set the secret.
+Please use YAML specs in [`deployment/kubernetes`](./deployment/kubernetes) as resources and use your own kustomization config to set the secret.
+
+- `deployment/kubernetes/bot.yml`: The bot deployment.
+- `deployment/kubernetes/chromium.yml`: The chromium server deployment.
 
 An example of kustomization config is provided in [`deployment/kustomization.yml`](./deployment/kustomization.yml).
