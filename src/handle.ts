@@ -3,9 +3,12 @@ import { config } from "./config";
 import { avif } from "./handler/avif";
 import { bmp } from "./handler/bmp";
 import { html } from "./handler/html";
+import { mp3 } from "./handler/mp3";
+import { ogg } from "./handler/ogg";
 import { pdf } from "./handler/pdf";
 import { svg } from "./handler/svg";
 import { tiff } from "./handler/tiff";
+import { wav } from "./handler/wav";
 import { log } from "./log";
 
 export type AttachmentHandler = (
@@ -20,6 +23,10 @@ const handlers: Record<string, AttachmentHandler | undefined> = {
 	"text/html": html,
 	"application/pdf": pdf,
 	"application/postscript": pdf,
+	"audio/mpeg": mp3,
+	"audio/ogg": ogg,
+	"audio/wav": wav,
+	"audio/x-wav": wav,
 };
 
 const KB = 1024;

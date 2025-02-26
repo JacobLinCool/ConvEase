@@ -13,9 +13,9 @@ ConvEase effortlessly converts and transcribes media on Discord, making every co
 | AI (`application/postscript`) | PNG (`image/png`) | ✅          |
 | HTML (`text/html`)            | PNG (`image/png`) | ✅          |
 | PDF (`application/pdf`)       | PNG (`image/png`) | ✅ (1 page) |
-| WAV (`audio/wav`)             | Transcription     | WIP        |
-| MP3 (`audio/mpeg`)            | Transcription     | WIP        |
-| OGG (`audio/ogg`)             | Transcription     | WIP        |
+| WAV (`audio/x-wav`)           | Transcription     | ✅          |
+| MP3 (`audio/mpeg`)            | Transcription     | ✅          |
+| OGG (`audio/ogg`)             | Transcription     | ✅          |
 
 ## Screenshots
 

@@ -13,6 +13,8 @@
 		"format": "prettier --write . --ignore-path .gitignore"
 	},
 	"dependencies": {
+		"@ai-sdk/google": "^1.1.17",
+		"ai": "^4.1.46",
 		"debug": "^4.4.0",
 		"discord.js": "^14.18.0",
 		"dotenv": "^16.4.7",
