@@ -1,8 +1,8 @@
-FROM jacoblincool/playwright:chromium-light-server as chromium
+FROM jacoblincool/playwright:chromium-light-server AS chromium
 
 RUN apk add --no-cache font-noto-cjk
 
-FROM node:lts as builder
+FROM node:lts AS builder
 
 WORKDIR /app
 
@@ -19,7 +19,7 @@ RUN pnpm build
 RUN npm pkg delete scripts.prepare
 RUN pnpm prune --production
 
-FROM node:lts as bot
+FROM node:lts AS bot
 
 WORKDIR /app
 
