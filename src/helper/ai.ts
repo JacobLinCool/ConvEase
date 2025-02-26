@@ -6,6 +6,7 @@ export const model = google("gemini-2.0-flash-001");
 export async function transcribe(
 	audio: ArrayBuffer,
 	mimeType: "audio/wav" | "audio/mpeg" | "audio/ogg",
+	prompt = process.env.TRANSCRIPTION_PROMPT,
 ) {
 	const { text } = await generateText({
 		model,
@@ -15,7 +16,9 @@ export async function transcribe(
 				content: [
 					{
 						type: "text",
-						text: 'Transcribe this audio to text, with punctuation, capitalization, and hesitations like "um" and "uh" included.',
+						text:
+							prompt ||
+							'Transcribe this audio to text, with punctuation, capitalization, and hesitations like "um" and "uh" included.',
 					},
 					{
 						type: "file",
