@@ -38,6 +38,10 @@ export async function handle(message: Message) {
 		return;
 	}
 
+	if (message.channel.isDMBased()) {
+		return;
+	}
+
 	log(
 		"Getting attachments",
 		message.attachments
@@ -68,10 +72,12 @@ export async function handle(message: Message) {
 
 	if (config.CREATE_THREAD && !message.channel.isThread()) {
 		const thread = await message.startThread({ name: "ConvEase" }).catch(() => message.channel);
-		await thread.send({
-			content: texts.join("\n"),
-			files,
-		});
+		if (!thread.isDMBased()) {
+			await thread.send({
+				content: texts.join("\n"),
+				files,
+			});
+		}
 	} else {
 		await message.reply({
 			content: texts.join("\n"),

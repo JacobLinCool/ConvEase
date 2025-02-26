@@ -5,4 +5,5 @@ export default defineConfig({
 	outDir: "dist",
 	bundle: true,
 	clean: true,
+	sourcemap: true,
 });
